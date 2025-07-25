@@ -1,0 +1,14 @@
+---
+# Playbook to update Linux servers running various distributions
+- name: Update Linux servers
+  hosts: all
+  become: true # Run tasks with root privileges
+
+  tasks:
+    # Task to update Debian-based Linux distributions
+    - name: Update Debian-based Linux distributions
+      when: ansible_distribution in ['Debian', 'Ubuntu', 'LinuxMint']
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 3600
